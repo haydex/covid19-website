@@ -1,0 +1,1649 @@
+/*
+
+
+
+    " Reimplement the wheel to either learn, or make it better. "
+
+    http://hayder.design/
+    https://www.youtube.com/watch?v=QOlTGA3RE8I
+    
+    Product Name: COVID-19 MISINFO,
+	Description: Tracking COVID-19 misinformation.
+	Beneficiary: COSMOS
+	
+	Copyright © 1992 - 2020 HAYDER, All Rights Reserved.
+	
+	
+	
+*/
+
+/** Global settings **/
+
+:root {
+    
+    /* theme */
+
+    --reddish: #fd4444;
+    --reddishLight: rgb(255, 113, 113);
+    --reddishLight2: rgb(253, 68, 68, 0.4);
+    --blackish: #242120;
+    --blackish2: #2c2928;
+    --shadow: rgb(0, 0, 0, 0.5);
+    --blackishTransparent0: rgb(36, 33, 32, 0.9);
+    --blackishTransparent1: rgb(36, 33, 32, 0.3);
+    --blackishTransparent2: rgb(36, 33, 32, 0.2);
+    --blackishTransparent3: rgb(36, 33, 32, 0);
+    --blackishTransparent4: rgb(36, 33, 32, 0);
+    --blackishTransparent5: rgba(36, 33, 32, 0.90);
+    --blackishShadow: hsla(15, 6%, 13%, 0.3);
+    --littleGrey: hsla(15, 6%, 20%, 0.9);
+    --littleGrey2: hsla(15, 6%, 25%, 1);
+    --greyishDark: hsla(15, 6%, 40%, 0.3);
+    --greyish: hsla(15, 6%, 40%, 1);
+    --lightGreyish: hsla(15, 6%, 60%, 1);
+    --lighterGreyish: rgb(230, 230, 230);
+    --lighterGreyish2: #E8E8E8;
+    --whitish: hsla(15, 6%, 100%, 1);
+    --whitishTransparent2: hsla(15, 6%, 100%, 0);
+    --blueish: #2C8DFF;
+    --lightBlueish: rgb(136, 191, 255);
+    --lightBlueish1: rgb(75, 159, 255);
+
+    /* fonts */
+
+    --size12: 12px;
+    --size14: 14px;
+    --size16: 16px;
+    --size18: 18px;
+    --size22: 22px;
+    --size28: 28px;
+    --size30: 30px;
+    --size34: 34px;
+    --size38: 38px;
+    --size48: 48px;
+    --size58: 58px;
+
+    /* radius */
+
+    --radius5: 5px;
+    --radius13: 13px;
+    --radius15: 15px;
+    --radius25: 25px;
+    --radius1000: 1000px;
+
+    /* interface */
+
+    --interface: url(/assets/interface/interface.svg);
+    --backgroundImage: url(/assets/images/map.png);
+    
+}
+
+html {
+
+    color: var(--whitish);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp   https://www.youtube.com/watch?v=ADDvQlerEx4&list=PLu8EoSxDXHP5CIFvt9-ze3IngcdAc2xKG&index=2 */
+
+}
+
+body {
+
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "Theme"
+        "Content"
+        "Footer";
+    
+    background-color: var(--whitish);
+    margin: 0px;
+    box-sizing: inherit;
+    color: var(--blackish);
+
+}
+
+body.freeze {
+
+    overflow: hidden;
+    
+}
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+
+}
+
+a:hover {
+
+    color: inherit;
+
+}
+
+button {
+
+    background-color: transparent;
+    border: 0px;
+    outline: 0px;
+    cursor: hand;
+    cursor: pointer;
+
+}
+
+input {
+
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left;
+    text-indent: 10px;
+    padding: 7px;
+    border-radius: var(--radius13);
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
+input[type="submit"] {
+
+    border-radius: var(--radius25);
+    padding: 10px;
+    cursor: hand;
+    cursor: pointer;
+    text-indent: 0px;
+
+}
+
+select {
+
+    /* -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; */
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 15px;
+    outline: none;
+
+}
+
+textarea {
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    resize: none;
+    font-size: 18px;
+    font-weight: 400;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-indent: 10px;
+    padding: 7px;
+    border-radius: var(--radius13);
+    border: none;
+    outline: 0px;
+    margin-bottom: 20px;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+
+}
+
+span#requiredAsterisk {
+
+    color: var(--reddish);
+    font-weight: 600;
+    font-size: 22px;
+
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+
+}
+
+
+
+/* Header */
+
+header#mainHeader {
+
+    display: flex;
+    width: 100%;
+    justify-self: center;
+    text-align: center;
+    margin-top: 60px;
+    flex-wrap: wrap;
+
+}
+
+header#mainHeader h1#header1 {
+    
+    width: 100%;
+    font-size: 100px;
+    text-align: center;
+    line-height: 90px;
+
+}
+
+header#mainHeader h1#header2 {
+
+    width: 100%;
+    font-size: 110px;
+    text-align: center;
+    line-height: 100px;
+    color: var(--reddish);
+
+}
+
+header#mainHeader p#description {
+
+    font-size: 22px;
+    font-weight: 500;
+    text-align: center;
+    max-width: 650px;
+    margin: 0px auto;
+    margin-top: 20px;
+    padding: 0px 20px;
+
+}
+
+
+
+/* Navigator */
+
+ul#navigator {
+
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 800;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ul#navigator li {
+
+    padding: 0px 20px;
+
+}
+
+ul#navigator li:hover {
+
+    color: var(--reddish);
+
+}
+
+
+
+/* Search */
+
+form#search {
+
+   margin: 0px auto;
+   margin-top: 50px;
+   width: 500px;
+
+}
+
+form#search label {
+
+   display: none;
+
+}
+
+form#search input#searchBox {
+
+    border-radius: var(--radius25);
+    border: 2px solid var(--lighterGreyish);
+    width: 100%;
+    font-size: 22px;
+    padding: 10px 20px;
+    text-align: center;
+
+}
+
+
+
+/* Report Scam Button */
+
+button#reportScamButton {
+
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 90px;
+    color: var(--reddish);
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    z-index: 10;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+}
+
+button#reportScamButton:hover {
+
+    opacity: 1;
+
+}
+
+button#reportScamButton div#icon {
+
+    width: 90px;
+    height: 80px;
+    background-image: var(--interface);
+    background-position: -10px -635px;
+
+}
+
+button#reportScamButton p#label {
+
+    margin-top: 10px;
+
+}
+
+
+
+/* Updates */
+
+section#updates {
+
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: var(--reddish);
+    color: var(--whitish);
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 10;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+}
+
+
+
+/* Content */
+
+main#content {
+
+    margin: 0px auto;
+    margin-top: 50px;
+    text-align: center;
+    max-width: 850px;
+    border-radius: var(--radius13);
+    /* background-color: var(--whitish); */
+
+}
+
+main#content ul#cards {
+
+    list-style: none;
+    padding-left: 0px;
+    padding-right: 0px;
+
+}
+
+main#content ul#cards li.card {
+
+    margin: 0px auto;
+    padding: 80px 80px;
+    max-width: 850px;
+    border-radius: var(--radius15);
+    background-color: var(--blackish);
+    color: var(--whitish);
+    text-align: left;
+
+}
+
+main#content ul#cards li.card h2.titleLabel {
+
+    font-size: 34px;
+
+}
+
+main#content ul#cards li.card h2.titleLabel p {
+
+    /* text-decoration: underline; */
+    font-size: 145px;
+    font-weight: 700;
+    line-height: 145px;
+    color: var(--reddish);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--littleGrey2);
+
+}
+
+main#content ul#cards li.card h2.titleLabel p:hover {
+
+    /* color: var(--whitish); */
+
+}
+
+main#content ul#cards li.card h2.titleLabel span#counter {
+
+    color: var(--reddish);
+    font-size: 145px;
+    font-weight: 300;
+
+}
+
+main#content ul#cards li.card ul.mainList {
+
+    list-style: none;
+    margin-top: 40px;
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem {
+
+    margin-bottom: 30px;
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem p#title {
+
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem p#title span#tag {
+
+    color: var(--reddish);
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem ul#details {
+
+    margin-top: 10px;
+    list-style: none;
+    opacity: 0.5;
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem ul#details div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem ul#details li {
+
+    display: inline-block;
+    margin-right: 10px;
+
+}
+
+main#content ul#cards li.card ul.mainList li.mainListItem ul#details li p {
+
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+main#content ul#cards button#more {
+
+    margin-top: 40px;
+    color: var(--reddish);
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 900;
+    line-height: 18px;
+
+}
+
+main#content ul#cards button#more:hover {
+
+    color: var(--whitish);
+}
+
+/** Misinfo **/
+
+main#content ul#cards li#misinfoCard.card {
+
+    margin-bottom: 50px;
+
+}
+
+main#content ul#cards li.card ul.mainList li#misinfo p#title:hover {
+
+    text-decoration: underline;
+    cursor: hand;
+    cursor: pointer;
+
+}
+
+main#content ul#cards li.card ul#misinfoList li.mainListItem ul#details li#debunkDate div#icon {
+
+    background-position: -454px -241px;
+
+}
+
+main#content ul#cards li.card ul#misinfoList li.mainListItem ul#details li#debunkedBy div#icon {
+
+    background-position: -477px -241px;
+    transform: scale(0.9);
+
+}
+
+main#content ul#cards li.card ul#misinfoList li.mainListItem ul#details li#location div#icon {
+
+    width: 15px;
+    background-position: -558px -241px;
+
+}
+
+/** Tips **/
+
+main#content ul#cards li.card ul#tipsList li.mainListItem ul#details {
+
+    /* display: none; */
+
+}
+
+main#content ul#cards li.card ul#tipsList li.mainListItem ul#details li#publishDate div#icon {
+
+    background-position: -504px -241px;
+
+}
+
+main#content ul#cards li.card ul#tipsList li.mainListItem ul#details li#source div#icon {
+
+    background-position: -578px -241px;
+    transform: scale(0.9);
+
+}
+
+
+
+/** Sponsors **/
+
+section#sponsors {
+    text-align: center;
+    color: #2F2D2C;
+    padding-bottom: 80px;
+}
+
+section#sponsors h4#title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+section#sponsors ul#items {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+section#sponsors ul#items h4#label {
+    display: inline-block;
+    height: 100px;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+section#sponsors ul#items li {
+    display: inline-block;
+    width: 120px;
+    height: 140px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    vertical-align: top;
+}
+
+section#sponsors ul#items li div#logo {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    filter: grayscale(1);
+    transition: all 1s ease;
+}
+
+section#sponsors ul#items li div#logo:hover {
+    filter: grayscale(0);
+    transition: all 0.1s ease;
+}
+
+section#sponsors ul#items li#armyResearchOffice div#logo {
+    background-image: url(../../assets/images/sponsors/army-research-office.png);
+}
+
+section#sponsors ul#items li#officeOfNavalResearch div#logo {
+    width: 120px;
+    background-image: url(../../assets/images/sponsors/office-of-naval-research.png);
+}
+
+section#sponsors ul#items li#airForceResearchLaboratory div#logo {
+    background-image: url(../../assets/images/sponsors/air-force-research-laboratory.png);
+}
+
+section#sponsors ul#items li#arkansasResearchAlliance div#logo {
+    background-image: url(../../assets/images/sponsors/arkansas-research-alliance.png);
+}
+
+section#sponsors ul#items li#defenseAdvancedResearchProjectsAgency div#logo {
+    width: 120px;
+    background-image: url(../../assets/images/sponsors/defense-advanced-research-projects-agency.png);
+}
+
+section#sponsors ul#items li#nationalScienceFoundation div#logo {
+    background-image: url(../../assets/images/sponsors/national-science-foundation.png);
+}
+
+section#sponsors ul#items li#departmentOfHomelandSecurity div#logo {
+    background-image: url(../../assets/images/sponsors/department-of-homeland-security.png);
+}
+
+
+
+/* Footer */
+
+footer#footer {
+
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: center;
+    justify-self: center;
+    justify-content: center;
+
+}
+
+main#content div#whiteGradient {
+
+  
+    display: none;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(var(--whitishTransparent2), var(--whitish));
+    z-index: -100;
+
+}
+
+footer#footer div#cosmos {
+
+    width: 320px;
+    margin: 0px auto;
+
+}
+
+footer#footer div#cosmos div#icon {
+
+    margin: 0px auto;
+    width: 197px;
+    height: 28px;
+    background-image: var(--interface);
+    background-position: -247px -480px;
+
+}
+
+footer#footer div#cosmos p#description {
+
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+footer#footer ul#socialMedia {
+
+    list-style: none;
+    margin: 0px auto;
+    margin-top: 30px;
+
+}
+
+footer#footer ul#socialMedia li {
+
+    display: inline-block;
+    width: 26px;
+    height: 32px;
+    background-image: var(--interface);
+    margin: 0px 10px;
+
+}
+
+footer#footer ul#socialMedia li#twitter {
+
+    background-position: -10px -750px;
+
+}
+
+footer#footer ul#socialMedia li#facebook {
+
+    background-position: -37px -750px;
+
+}
+
+footer#footer ul#socialMedia li#linkedin {
+
+    background-position: -64px -750px;
+
+}
+
+footer#footer ul#socialMedia li#instagram {
+
+    background-position: -90px -750px;
+
+}
+
+
+
+/* Report Scam Modal */
+
+section#reportScamModal {
+
+    display: none;
+    position: fixed;
+    justify-content: center;
+    z-index: 1000;
+
+}
+
+section#reportScamModal.displayed {
+
+    display: flex;
+
+}
+
+section#reportScamModal div#shadow {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blackishTransparent2);
+    
+}
+
+section#reportScamModal div#messageBox {
+
+    position: fixed;
+    margin: 0px auto;
+    align-self: center;
+    max-width: 900px;
+    /* width: 80vw; */
+    /* height: 70vh; */
+    padding: 60px;
+    background-color: var(--lighterGreyish2);
+    border-radius: 15px;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    
+}
+
+section#reportScamModal div#messageBox button#closeButton {
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 23px;
+    height: 23px;
+    background-image: var(--interface);
+    background-position: -374px -434px;
+    
+}
+
+/** Pick a Source Form **/
+
+section#reportScamModal div#messageBox form#pickSourceForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm p#question {
+
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options {
+
+    display: inline-block;
+    margin: 0px auto;
+    margin-top: 30px;
+    text-align: center;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton {
+
+    margin: 20px 20px;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton div#icon {
+
+    width: 123px;
+    height: 123px;
+    background-image: var(--interface);
+    background-color: var(--whitish);
+    border-radius: var(--radius1000);
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button p#label {
+
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#socialMediaButton div#icon {
+
+    background-position: -10px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#webOrVideoButton div#icon {
+
+    background-position: -143px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#phoneOrTextButton div#icon {
+
+    background-position: -277px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#emailButton div#icon {
+
+    background-position: -410px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#mailButton div#icon {
+
+    background-position: -533px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#radioButton div#icon {
+
+    background-position: -665px -814px;
+    
+}
+
+/** Entry Form Class **/
+
+section#reportScamModal div#messageBox form.entryForm {
+
+    margin-top: 30px;
+    max-width: 650px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm h2#title {
+
+    margin-bottom: 30px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm label {
+
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm input {
+
+    display: block;
+    border: 1px solid var(--lighterGreyish2);
+    background-color: var(--whitish);
+    color: var(--blackish);
+    margin-bottom: 20px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm input[type="submit"] {
+
+    background-color: var(--reddish);
+    color: var(--whitish);
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm input[type="submit"].inactive {
+
+    background-color: var(--lightGreyish);
+    cursor: default;
+    
+}
+
+/** Social Media Form **/
+
+section#reportScamModal div#messageBox form#socialMediaForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#socialMediaForm.active {
+
+    display: block;
+    
+}
+
+/** Web or Video Form **/
+
+section#reportScamModal div#messageBox form#webOrVideoForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#webOrVideoForm.active {
+
+    display: block;
+    
+}
+
+/** Phone or Text Form **/
+
+section#reportScamModal div#messageBox form#phoneOrTextForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#phoneOrTextForm.active {
+
+    display: block;
+    
+}
+
+/** Email Form **/
+
+section#reportScamModal div#messageBox form#emailForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm input#attachmentInput {
+
+    display: inline-block;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm button#uploadButton {
+
+    display: inline-block;
+    background-color: var(--blueish);
+    border-radius: var(--radius13);
+    color: var(--whitish);
+    padding: 8px 20px;
+    font-size: 16px;
+    
+}
+
+/** Mail Form **/
+
+section#reportScamModal div#messageBox form#mailForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#mailForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#mailForm input#attachmentInput {
+
+    display: inline-block;
+    
+}
+
+section#reportScamModal div#messageBox form#mailForm button#uploadButton {
+
+    display: inline-block;
+    background-color: var(--blueish);
+    border-radius: var(--radius13);
+    color: var(--whitish);
+    padding: 8px 20px;
+    font-size: 16px;
+    
+}
+
+/** TV/Radio Form **/
+
+section#reportScamModal div#messageBox form#radioForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#radioForm.active {
+
+    display: block;
+    
+}
+
+
+
+/* More Info Modal */
+
+section#moreInfoModal {
+
+    display: none;
+    position: fixed;
+    justify-content: center;
+    z-index: 1000;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+}
+
+section#moreInfoModal.displayed {
+
+    display: flex;
+
+}
+
+section#moreInfoModal div#shadow {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blackishTransparent2);
+    
+}
+
+section#moreInfoModal div#messageBox {
+
+    position: fixed;
+    margin: 0px auto;
+    align-self: center;
+    max-width: 850px;
+    /* width: 80vw; */
+    /* height: 70vh; */
+    padding: 60px;
+    background-color: var(--whitish);
+    border-radius: 15px;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    
+}
+
+section#moreInfoModal div#messageBox button#closeButton {
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 23px;
+    height: 23px;
+    background-image: var(--interface);
+    background-position: -374px -434px;
+    
+}
+
+/** Misinfo **/
+
+section#moreInfoModal div#messageBox p#title {
+
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+section#moreInfoModal div#messageBox p#title span#tag {
+
+    color: var(--reddish);
+
+}
+
+section#moreInfoModal div#messageBox ul#details {
+
+    margin-top: 10px;
+    list-style: none;
+    opacity: 0.6;
+
+}
+
+section#moreInfoModal div#messageBox ul#details div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+section#moreInfoModal div#messageBox ul#details li {
+
+    display: inline-block;
+    margin-right: 10px;
+    height: 20px;
+    overflow: hidden;
+
+}
+
+section#moreInfoModal div#messageBox ul#details li p {
+
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+/** Debunk Date **/
+
+section#moreInfoModal div#messageBox ul#details li#debunkDate div#icon {
+
+    background-position: -454px -272px;
+
+}
+
+/** Debunked By **/
+
+section#moreInfoModal div#messageBox ul#details li#debunkedBy div#icon {
+
+    background-position: -477px -272px;
+    transform: scale(0.9);
+
+}
+
+/** Published **/
+
+section#moreInfoModal div#messageBox ul#details li#published {
+
+    display: none;
+
+}
+
+section#moreInfoModal div#messageBox ul#details li#published div#icon {
+
+    background-position: -503px -273px;
+
+}
+
+/** Location **/
+
+section#moreInfoModal div#messageBox ul#details li#location div#icon {
+
+    width: 15px;
+    background-position: -558px -273px;
+
+}
+
+/** Description **/
+
+section#moreInfoModal div#messageBox p#description {
+
+    margin-top: 30px;
+
+}
+
+/** Sources **/
+
+section#moreInfoModal div#messageBox div#sources {
+
+    margin-top: 30px;
+
+}
+
+section#moreInfoModal div#messageBox div#sources p {
+
+    display: inline-block;
+    vertical-align: top;
+    font-weight: 500;
+    word-wrap: break-word;
+    word-break: break-all;
+
+}
+
+section#moreInfoModal div#messageBox div#sources div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+section#moreInfoModal div#messageBox div#sources div#icon {
+
+    background-position: -578px -270px;
+
+}
+
+
+
+/* Message Modal */
+
+section#messageModal {
+
+    display: none;
+    position: fixed;
+    justify-content: center;
+    z-index: 1000;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+}
+
+section#messageModal.displayed {
+
+    display: flex;
+
+}
+
+section#messageModal div#shadow {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blackishTransparent2);
+    
+}
+
+section#messageModal div#messageBox {
+
+    display: flex;
+    position: fixed;
+    margin: 0px auto;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 550px;
+    /* width: 80vw; */
+    /* height: 70vh; */
+    padding: 40px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-color: var(--reddish);
+    color: var(--whitish);
+    border-radius: 15px;
+    flex-wrap: wrap;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    
+}
+
+section#messageModal div#messageBox button#closeButton {
+
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    background-image: var(--interface);
+    background-position: -418px -435px;
+    transform: scale(0.8);
+    
+}
+
+section#messageModal div#messageBox button#okButton {
+
+    display: inline-block;
+    background-color: transparent;
+    border-radius: var(--radius25);
+    color: var(--whitish);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 7px 30px;
+    margin: 0px auto;
+    margin-top: 20px;
+    border: 2px solid var(--whitish);
+    
+}
+
+section#messageModal div#messageBox button#okButton:hover {
+
+    color: var(--reddish);
+    background-color: var(--whitish);
+    
+}
+
+
+
+/* background */
+
+section#background {
+
+    position: fixed;
+    background-image: var(--backgroundImage);
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position-y: top;
+    background-position-x: center;
+    z-index: -20000;
+
+    transform: translate3d(0,0,0);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+}
+
+
+
+/* Responsivity */
+
+@media only screen and (max-width: 670px) {
+
+    /** Header **/
+
+    header#mainHeader h1#header1 {
+    
+    font-size: 62px;
+    line-height: 42px;
+
+    }
+
+    header#mainHeader h1#header2 {
+
+        font-size: 70px;
+        line-height: 70px;
+
+    }
+
+    header#mainHeader p#description {
+
+        /* display: none; */
+        font-size: 18px;
+        font-weight: 500;
+
+    }
+
+    /* Navigator */
+
+    ul#navigator {
+
+        font-size: 18px;
+
+    }
+
+    ul#navigator li  {
+
+        padding: 0px 12px;
+
+    }
+
+    /* Search */
+
+    form#search {
+
+        width: 300px;
+
+    }
+
+    /** Updates **/
+
+    section#updates {
+
+        /* padding-top: 10px;
+        padding-bottom: 10px; */
+
+    }
+
+    /** Content **/
+
+    main#content {
+
+        /* display: none; */
+    }
+    
+    main#content ul#cards {
+
+        /* display: none; */
+
+    }
+
+    main#content ul#cards li.card {
+
+        /* display: none; */
+        padding-left: 25px;
+        padding-right: 25px;
+
+    }
+
+    main#content ul#cards li.card h2.titleLabel {
+
+        /* display: none; */
+
+    }
+
+    main#content ul#cards li.card h2.titleLabel span#counter {
+
+        font-size: 76px;
+
+    }
+
+    main#content ul#cards li.card h2.titleLabel {
+
+        font-size: 34px;
+
+    }
+
+    main#content ul#cards li.card h2.titleLabel p {
+
+        font-size: 76px;
+        line-height: 76px;
+
+    }
+
+    main#content ul#cards li.card ul.mainList li.mainListItem {
+
+        margin-top: 50px;
+
+    }
+
+    main#content ul#cards li.card ul.mainList {
+
+        /* display: none; */
+
+    }
+
+    section#sponsors {
+        
+        padding-bottom: 20px;
+
+    }
+
+    /** Scam Button **/
+
+    button#reportScamButton {
+
+        right: 10px;
+        bottom: 35px;
+        transform: scale(0.8);
+
+    }
+
+    /** Report Scam Modal **/
+
+    section#reportScamModal div#messageBox {
+
+        align-self: center;
+        width: 99vw;
+        height: 99vh;
+        padding: 60px 25px;
+        padding-bottom: 70px;
+        background-color: var(--lighterGreyish2);
+        overflow: hidden;
+
+        transform: translate3d(0,0,0);
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm p#question {
+
+        font-size: 25px;
+        font-weight: 900;
+        margin-top: 10px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options {
+
+        padding-bottom: 60px;
+        
+    }
+
+    section#reportScamModal div#messageBox form {
+
+        overflow: scroll;
+        height: 100%;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton {
+
+        margin: 10px 10px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton div#icon {
+
+        width: 100px;
+        height: 100px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button p#label {
+
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 20px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#socialMediaButton div#icon {
+
+        background-position: -20px -826px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#webOrVideoButton div#icon {
+
+        background-position: -154px -826px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#phoneOrTextButton div#icon {
+
+        background-position: -290px -826px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#emailButton div#icon {
+
+        background-position: -422px -826px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#mailButton div#icon {
+
+        background-position: -545px -826px;
+        
+    }
+
+    section#reportScamModal div#messageBox form#pickSourceForm div#options button#radioButton div#icon {
+
+        background-position: -677px -826px;
+        
+    }
+
+    /** More Information Modal **/
+
+    section#moreInfoModal div#messageBox {
+
+        width: 99vw;
+        height: 99vh;
+        padding: 60px 25px;
+        padding-bottom: 0px;
+        background-color: var(--lighterGreyish2);
+
+        transform: translate3d(0,0,0);
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        
+    }
+
+    section#moreInfoModal div#messageBox div#messageContent {
+
+        overflow: scroll;
+        height: 100%;
+        padding-bottom: 100px;
+        
+    }
+
+}

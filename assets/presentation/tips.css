@@ -1,0 +1,1064 @@
+/*
+
+
+
+    " Reimplement the wheel to either learn, or make it better. "
+
+    http://hayder.design/
+    https://www.youtube.com/watch?v=QOlTGA3RE8I
+    
+    Product Name: COVID-19 MISINFO,
+	Description: Tracking COVID-19 misinformation.
+	Beneficiary: COSMOS
+	
+	Copyright © 1992 - 2020 HAYDER, All Rights Reserved.
+	
+	
+	
+*/
+
+/** Global settings **/
+
+:root {
+    
+    /* theme */
+
+    --reddish: #fd4444;
+    --reddishLight: rgb(255, 113, 113);
+    --reddishLight2: rgb(253, 68, 68, 0.4);
+    --blackish: #242120;
+    --blackish2: #2c2928;
+    --shadow: rgb(0, 0, 0, 0.5);
+    --blackishTransparent0: rgb(36, 33, 32, 0.9);
+    --blackishTransparent1: rgb(36, 33, 32, 0.3);
+    --blackishTransparent2: rgb(36, 33, 32, 0.2);
+    --blackishTransparent3: rgb(36, 33, 32, 0);
+    --blackishTransparent4: rgb(36, 33, 32, 0);
+    --blackishTransparent5: rgba(36, 33, 32, 0.90);
+    --blackishShadow: hsla(15, 6%, 13%, 0.3);
+    --littleGrey: hsla(15, 6%, 20%, 0.9);
+    --littleGrey2: hsla(15, 6%, 25%, 1);
+    --greyishDark: hsla(15, 6%, 40%, 0.3);
+    --greyish: hsla(15, 6%, 40%, 1);
+    --lightGreyish: hsla(15, 6%, 60%, 1);
+    --lighterGreyish: rgb(230, 230, 230);
+    --lighterGreyish2: #E8E8E8;
+    --whitish: hsla(15, 6%, 100%, 1);
+    --whitishTransparent2: hsla(15, 6%, 100%, 0);
+    --blueish: #2C8DFF;
+    --lightBlueish: rgb(136, 191, 255);
+    --lightBlueish1: rgb(75, 159, 255);
+
+    /* fonts */
+
+    --size12: 12px;
+    --size14: 14px;
+    --size16: 16px;
+    --size18: 18px;
+    --size22: 22px;
+    --size28: 28px;
+    --size30: 30px;
+    --size34: 34px;
+    --size38: 38px;
+    --size48: 48px;
+    --size58: 58px;
+
+    /* radius */
+
+    --radius5: 5px;
+    --radius13: 13px;
+    --radius15: 15px;
+    --radius25: 25px;
+    --radius1000: 1000px;
+
+    /* interface */
+
+    --interface: url(../../assets/interface/interface.svg);
+    --backgroundImage: url(../../assets/images/map.png);
+    
+}
+
+html {
+
+    color: var(--whitish);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp   https://www.youtube.com/watch?v=ADDvQlerEx4&list=PLu8EoSxDXHP5CIFvt9-ze3IngcdAc2xKG&index=2 */
+
+}
+
+body {
+
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "Theme"
+        "Content"
+        "Footer";
+    
+    background-color: var(--whitish);
+    background-image: var(--backgroundImage);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0px;
+    box-sizing: inherit;
+    color: var(--blackish);
+
+}
+
+body.noScroll {
+
+    overflow: hidden;
+    
+}
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+
+}
+
+a:hover {
+
+    color: inherit;
+
+}
+
+button {
+
+    background-color: transparent;
+    border: 0px;
+    outline: 0px;
+    cursor: hand;
+    cursor: pointer;
+
+}
+
+input {
+
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left;
+    text-indent: 10px;
+    padding: 7px;
+    border-radius: var(--radius13);
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
+input[type="submit"] {
+
+    border-radius: var(--radius25);
+    padding: 10px;
+    cursor: hand;
+    cursor: pointer;
+    text-indent: 0px;
+
+}
+
+select {
+
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 15px;
+    outline: none;
+
+}
+
+textarea {
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    resize: none;
+    font-size: 18px;
+    font-weight: 400;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-indent: 10px;
+    padding: 7px;
+    border-radius: var(--radius13);
+    border: none;
+    outline: 0px;
+    margin-bottom: 20px;
+
+}
+
+span#requiredAsterisk {
+
+    color: var(--reddish);
+    font-weight: 600;
+    font-size: 22px;
+
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+
+}
+
+
+
+/* Header */
+
+header#mainHeader {
+
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: center;
+    background-color: var(--whitish);
+    box-shadow: 2px 2px 5px var(--blackishShadow);
+    z-index: 400;
+
+}
+
+header#mainHeader h1#header1 {
+    
+    display: inline-flex;
+    font-size: 32px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+header#mainHeader a#backLink {
+
+    display: flex;
+    position: absolute;
+    left: 20px;
+    align-self: center;
+    width: 50px;
+    height: 30px;
+    background-image: var(--interface);
+    background-position: -42px -548px;
+
+}
+
+
+
+/* Report Scam Button */
+
+button#reportScamButton {
+
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 90px;
+    color: var(--reddish);
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    z-index: 10;
+
+}
+
+button#reportScamButton:hover {
+
+    opacity: 1;
+
+}
+
+button#reportScamButton div#icon {
+
+    width: 90px;
+    height: 80px;
+    background-image: var(--interface);
+    background-position: -10px -635px;
+
+}
+
+button#reportScamButton p#label {
+
+    margin-top: 10px;
+
+}
+
+
+
+/* Updates */
+
+section#updates {
+
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: var(--reddish);
+    color: var(--whitish);
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 10;
+
+}
+
+
+
+/* Content */
+
+main#content {
+
+    margin: 0px auto;
+    margin-top: 120px;
+    text-align: center;
+    max-width: 850px;
+    padding: 0px 40px;
+
+}
+
+
+/** Search **/
+
+form#search input#searchBox {
+
+    border-radius: var(--radius25);
+    border: 2px solid var(--lighterGreyish);
+    width: 100%;
+    font-size: 22px;
+    padding: 10px 20px;
+    text-align: center;
+
+}
+
+form#search ul#searchOptions {
+
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    font-weight: 600;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+form#search ul#searchOptions li {
+
+    padding: 0px 20px;
+
+}
+
+form#search ul#searchOptions li#resultsCounterWrapper {
+
+    align-self: left;
+
+}
+
+form#search ul#searchOptions li#sortBySelectorWrapper {
+
+    display: none;
+
+}
+
+form#search ul#searchOptions li#sortBySelectorWrapper select {
+
+    display: inline-flex;
+    align-self: center;
+    margin-bottom: 0px;
+    font-size: 16px;
+
+}
+
+
+form#search ul#searchOptions li#sortBySelectorWrapper p {
+
+    display: inline-flex;
+    align-self: center;
+
+}
+
+/** Results List **/
+
+ul.mainList {
+
+    list-style: none;
+    margin-top: 60px;
+    text-align: left;
+
+}
+
+ul.mainList li.mainListItem {
+
+    margin-top: 90px;
+
+}
+
+ul.mainList li.mainListItem p#title {
+
+    font-size: 22px;
+    font-weight: 600;
+}
+
+ul.mainList li.mainListItem p#title span#tag {
+
+    color: var(--reddish);
+
+}
+
+ul.mainList li.mainListItem ul#details {
+
+    margin-top: 10px;
+    list-style: none;
+    opacity: 0.6;
+
+}
+
+ul.mainList li.mainListItem ul#details div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+ul.mainList li.mainListItem ul#details li {
+
+    display: inline-block;
+    margin-right: 10px;
+    height: 20px;
+    overflow: hidden;
+
+}
+
+ul.mainList li.mainListItem ul#details li p {
+
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+/** Debunk Date **/
+
+ul#tipsList li.mainListItem ul#details li#debunkDate {
+
+    display: none;
+
+}
+
+ul#tipsList li.mainListItem ul#details li#debunkDate div#icon {
+
+    background-position: -454px -272px;
+
+}
+
+/** Debunked By **/
+
+ul#tipsList li.mainListItem ul#details li#debunkedBy {
+
+    display: none;
+
+}
+
+ul#tipsList li.mainListItem ul#details li#debunkedBy div#icon {
+
+    background-position: -477px -272px;
+    transform: scale(0.9);
+
+}
+
+/** Published **/
+
+ul#tipsList li.mainListItem ul#details li#published {
+
+    /* display: none; */
+
+}
+
+ul#tipsList li.mainListItem ul#details li#published div#icon {
+
+    background-position: -503px -273px;
+
+}
+
+/** Location **/
+
+ul#tipsList li.mainListItem ul#details li#location {
+
+    display: none;
+
+}
+
+ul#tipsList li.mainListItem ul#details li#location div#icon {
+
+    width: 15px;
+    background-position: -558px -273px;
+
+}
+
+/** Sources **/
+
+ul#tipsList li.mainListItem ul#details li#sources div#icon {
+
+    background-position: -578px -270px;
+
+}
+
+
+
+/* Footer */
+
+footer#footer {
+
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: center;
+
+}
+
+footer#footer div#whiteGradient {
+
+  
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(var(--whitishTransparent2), var(--whitish));
+    z-index: -100;
+
+}
+
+footer#footer div#cosmos {
+
+    width: 320px;
+    margin: 0px auto;
+
+}
+
+footer#footer div#cosmos div#icon {
+
+    margin: 0px auto;
+    width: 197px;
+    height: 28px;
+    background-image: var(--interface);
+    background-position: -247px -480px;
+
+}
+
+footer#footer div#cosmos p#description {
+
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+footer#footer ul#socialMedia {
+
+    list-style: none;
+    margin: 0px auto;
+    margin-top: 30px;
+
+}
+
+footer#footer ul#socialMedia li {
+
+    display: inline-block;
+    width: 26px;
+    height: 32px;
+    background-image: var(--interface);
+    margin: 0px 10px;
+
+}
+
+footer#footer ul#socialMedia li#twitter {
+
+    background-position: -10px -750px;
+
+}
+
+footer#footer ul#socialMedia li#facebook {
+
+    background-position: -37px -750px;
+
+}
+
+footer#footer ul#socialMedia li#linkedin {
+
+    background-position: -64px -750px;
+
+}
+
+footer#footer ul#socialMedia li#instagram {
+
+    background-position: -90px -750px;
+
+}
+
+
+
+/* Report Scam Modal */
+
+section#reportScamModal {
+
+    display: flex;
+    display: none;
+    position: fixed;
+    justify-content: center;
+    z-index: 1000;
+
+}
+
+section#reportScamModal.displayed {
+
+    display: flex;
+
+}
+
+section#reportScamModal div#shadow {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blackishTransparent2);
+    
+}
+
+section#reportScamModal div#messageBox {
+
+    position: fixed;
+    margin: 0px auto;
+    align-self: center;
+    /* width: 80vw; */
+    /* height: 70vh; */
+    padding: 60px;
+    background-color: var(--lighterGreyish2);
+    border-radius: 15px;
+    
+}
+
+section#reportScamModal div#messageBox button#closeButton {
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    background-image: var(--interface);
+    background-position: -376px -435px;
+    
+}
+
+/** Pick a Source Form **/
+
+section#reportScamModal div#messageBox form#pickSourceForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm p#question {
+
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 30px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options {
+
+    display: inline-block;
+    margin: 0px auto;
+    margin-top: 30px;
+    text-align: center;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton {
+
+    margin: 20px 20px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button.optionButton div#icon {
+
+    width: 123px;
+    height: 123px;
+    background-image: var(--interface);
+    background-color: var(--whitish);
+    border-radius: var(--radius1000);
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button p#label {
+
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#socialMediaButton div#icon {
+
+    background-position: -10px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#webOrVideoButton div#icon {
+
+    background-position: -143px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#phoneOrTextButton div#icon {
+
+    background-position: -277px -814px;
+    
+}
+
+section#reportScamModal div#messageBox form#pickSourceForm div#options button#emailButton div#icon {
+
+    background-position: -410px -814px;
+    
+}
+
+/** Entry Form Class **/
+
+section#reportScamModal div#messageBox form.entryForm {
+
+    margin-top: 30px;
+    max-width: 650px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm h2#title {
+
+    margin-bottom: 30px;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm label {
+
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    
+}
+
+section#reportScamModal div#messageBox form.entryForm input {
+
+    display: block;
+    border: 1px solid var(--lighterGreyish2);
+    background-color: var(--whitish);
+    color: var(--blackish);
+    margin-bottom: 20px;
+    
+}
+
+/** Social Media Form **/
+
+section#reportScamModal div#messageBox form#socialMediaForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#socialMediaForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#socialMediaForm input[type="submit"] {
+
+    background-color: var(--reddish);
+    color: var(--whitish);
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+/** Web or Video Form **/
+
+section#reportScamModal div#messageBox form#webOrVideoForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#webOrVideoForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#webOrVideoForm input[type="submit"] {
+
+    background-color: var(--reddish);
+    color: var(--whitish);
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+/** Phone or Text Form **/
+
+section#reportScamModal div#messageBox form#phoneOrTextForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#phoneOrTextForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#phoneOrTextForm input[type="submit"] {
+
+    background-color: var(--reddish);
+    color: var(--whitish);
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+/** Email Form **/
+
+section#reportScamModal div#messageBox form#emailForm {
+
+    display: none;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm.active {
+
+    display: block;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm input#attachmentInput {
+
+    display: inline-block;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm button#uploadButton {
+
+    display: inline-block;
+    background-color: var(--blueish);
+    border-radius: var(--radius13);
+    color: var(--whitish);
+    padding: 8px 20px;
+    font-size: 16px;
+    
+}
+
+section#reportScamModal div#messageBox form#emailForm input[type="submit"] {
+
+    background-color: var(--reddish);
+    color: var(--whitish);
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+
+
+/* More Info Modal */
+
+section#moreInfoModal {
+
+    display: flex;
+    display: none;
+    position: fixed;
+    justify-content: center;
+    z-index: 1000;
+
+}
+
+section#moreInfoModal div#shadow {
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blackishTransparent2);
+    
+}
+
+section#moreInfoModal div#messageBox {
+
+    position: fixed;
+    margin: 0px auto;
+    align-self: center;
+    max-width: 850px;
+    /* width: 80vw; */
+    /* height: 70vh; */
+    padding: 60px;
+    background-color: var(--lighterGreyish2);
+    border-radius: 15px;
+    
+}
+
+section#moreInfoModal div#messageBox button#closeButton {
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    background-image: var(--interface);
+    background-position: -376px -435px;
+    
+}
+
+/** Misinfo **/
+
+section#moreInfoModal div#messageBox p#title {
+
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+section#moreInfoModal div#messageBox p#title span#tag {
+
+    color: var(--reddish);
+
+}
+
+section#moreInfoModal div#messageBox ul#details {
+
+    margin-top: 10px;
+    list-style: none;
+    opacity: 0.6;
+
+}
+
+section#moreInfoModal div#messageBox ul#details div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+section#moreInfoModal div#messageBox ul#details li {
+
+    display: inline-block;
+    margin-right: 10px;
+    height: 20px;
+    overflow: hidden;
+
+}
+
+section#moreInfoModal div#messageBox ul#details li p {
+
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+/** Debunk Date **/
+
+section#moreInfoModal div#messageBox ul#details li#debunkDate div#icon {
+
+    background-position: -454px -272px;
+
+}
+
+/** Debunked By **/
+
+section#moreInfoModal div#messageBox ul#details li#debunkedBy div#icon {
+
+    background-position: -477px -272px;
+    transform: scale(0.9);
+
+}
+
+/** Published **/
+
+section#moreInfoModal div#messageBox ul#details li#published {
+
+    display: none;
+
+}
+
+section#moreInfoModal div#messageBox ul#details li#published div#icon {
+
+    background-position: -503px -273px;
+
+}
+
+/** Location **/
+
+section#moreInfoModal div#messageBox ul#details li#location div#icon {
+
+    width: 15px;
+    background-position: -558px -273px;
+
+}
+
+/** Description **/
+
+section#moreInfoModal div#messageBox p#description {
+
+    margin-top: 30px;
+
+}
+
+/** Sources **/
+
+section#moreInfoModal div#messageBox div#sources {
+
+    margin-top: 30px;
+
+}
+
+section#moreInfoModal div#messageBox div#sources p {
+
+    display: inline-block;
+    vertical-align: top;
+    font-weight: 500;
+
+}
+
+section#moreInfoModal div#messageBox div#sources div.detailsIcon {
+
+    display: inline-block;
+    width: 20px;
+    height: 26px;
+    background-image: var(--interface);
+
+}
+
+section#moreInfoModal div#messageBox div#sources div#icon {
+
+    background-position: -578px -270px;
+
+}
