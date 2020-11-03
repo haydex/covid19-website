@@ -73,8 +73,8 @@
 
     /* interface */
 
-    --interface: url(../../assets/interface/interface.svg);
-    --backgroundImage: url(../../assets/images/map.png);
+    --interface: url(../interface/interface.svg);
+    --backgroundImage: url(../images/map.png);
     
 }
 
