@@ -73,8 +73,8 @@
 
     /* interface */
 
-    --interface: url(../interface/interface.svg);
-    --backgroundImage: url(../images/map.png);
+    --interface: url(/covid19-website/assets/interface/interface.svg);
+    --backgroundImage: url(/covid19-website/assets/images/map.png);
     
 }
 
